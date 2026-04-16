@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "Doctor": {
+      "title": "Doctor",
+      "description": "A medical professional at the clinic",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "specialization": { "type": "string" },
+        "bio": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "availability": { "type": "object" }
+      },
+      "required": ["name", "specialization"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "A scheduled medical appointment",
+      "type": "object",
+      "properties": {
+        "doctorId": { "type": "string" },
+        "doctorName": { "type": "string" },
+        "patientId": { "type": "string" },
+        "patientName": { "type": "string" },
+        "patientEmail": { "type": "string" },
+        "patientPhone": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "symptoms": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["doctorId", "patientName", "date", "time"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A user of the system (Patient or Admin)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["patient", "admin"] }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/doctors/{doctorId}": {
+      "schema": "Doctor",
+      "description": "Collection of doctors"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Collection of appointments"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles"
+    }
+  }
+}
